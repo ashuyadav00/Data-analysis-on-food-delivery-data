@@ -1,0 +1,93 @@
+<!DOCTYPE HTML>
+<html>
+<head> 
+	<title>Data Analysis</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script> 
+<script>
+window.onload = function () {
+	
+var chart = new CanvasJS.Chart("chartContainer", {
+	animationEnabled: true,
+	
+	title:{
+		text:"Number of orders"
+	},
+	axisX:{
+		interval: 1
+	},
+	axisY2:{
+		interlacedColor: "rgba(1,77,101,.2)",
+		gridColor: "rgba(1,77,101,.1)",
+		title: "Number of customers"
+	},
+	data: [{
+		type: "bar",
+		name: "",
+		axisYType: "secondary",
+		color: "#014D65",
+		dataPoints: [
+			{% for x, y in context["context1"] %}
+				{y : {{y}}, label: "{{x}}"},
+			{% endfor %}
+
+		]
+	}]
+});
+chart.render();
+
+
+
+}
+</script>
+<style type="text/css">
+	td{color:#14086e;}
+</style>
+</head>
+<body class="container" style="background-color: #bbb5eb; ">
+		<div class="jumbotron text-center" style="background-color: #14086e;color: white;">
+ 			<h1>Results</h1>
+  			<p>Results</p>
+  	
+		</div><br>
+		<div style="background-color: white;">
+			<table class="table color1">
+				<thead>
+					<tr>
+						<th>Attributes</th>
+						<th>Values</th>
+					</tr>
+				</thead>
+				<tbody id="tbdy1">
+					{% for data, data1 in context["context3"] %}
+					<tr>
+						<td>{{ data }}</td> 
+						<td>
+							<p>{{ data1 }}</p>
+						</td>
+					</tr>
+					{% endfor %}
+					{% for data, data1 in context["context"] %}
+					<tr>
+						<td>{{ data }}</td> 
+						<td>{% for data11 in data1 %}
+							<p>{{ data11 }}</p>
+							{% endfor %}
+						</td>
+					</tr>
+					{% endfor %}
+
+				
+
+				</tbody>
+			</table>
+	</div><br>
+
+<div id="chartContainer" style="height: 300px; width: 100%;"></div><br><br>
+<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+</body>
+</html>
